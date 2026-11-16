@@ -27,11 +27,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            git zip unzip \
-            autoconf libtool pkg-config \
-            zlib1g-dev libncurses5-dev \
-            cmake libffi-dev libssl-dev
+          sudo apt-get install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
 
       - name: Install Buildozer
         run: |
@@ -39,11 +35,12 @@ jobs:
           pip install buildozer cython==0.29.34
 
       - name: Build APK
+        working-directory: AutoClicker
         run: buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: AutoClicker-APK
-          path: bin/*.apk
+          path: AutoClicker/bin/*.apk
           if-no-files-found: error
